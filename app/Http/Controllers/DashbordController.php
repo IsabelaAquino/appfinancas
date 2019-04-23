@@ -15,7 +15,27 @@ class DashbordController extends Controller
         $this->validator  = $validator;
     }
 
-    public function auth(){
+    public function index(){
+        return "Estamos na index";
+    }
+    public function auth(Request $request){
+
+        $data = [
+            'email' -> $request->get('username'),
+            'password' -> $request->get('password')
+        ];
+
+        try {
+            \Auth::attempt($data, false);
+            return redirect()->route('user.dashboard');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
         
+
+      //  dd($request->all());
+       // var_dump();
+       //dump and die();
+
     }
 }
